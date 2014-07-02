@@ -1,0 +1,35 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <h3 class="new_item_h3">Nouvelle liste</h3>
+
+    <div class="background_new_item">
+
+        <form action="{{ path('liste_create') }}" method="post" {{ form_enctype(form) }}>
+            <div class="col_form_new_edit">
+                <table>
+                    <tr>
+                        <td style="padding-right:20px">{{ form_label(form.name, 'Libellé') }}</td>
+                        <td>{{ form_widget(form.name) }}</td>        
+                    </tr>
+                    
+                    <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    
+                    <tr>
+                        <td style="padding-right:20px">{{ form_label(form.etat, 'Etat') }}</td>
+                        <td>{{ form_widget(form.etat) }}</td>        
+                    </tr>
+                </table>
+            </div>
+                {{ form_rest(form) }}
+                {{ form_errors(form) }}    
+
+            <div class="buttons_action">
+                <button type="submit" class="save">&nbsp;</button>
+            </div>
+        </form>
+    </div>
+    <div class="clear"></div>
+</div>
+{% endblock %}

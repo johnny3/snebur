@@ -1,0 +1,38 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <h3>Gestion des utilisateurs</h3>
+    
+    <div class="col-tableau">
+        <div class="new_item_admin">
+            <a href="{{ path('fos_user_registration_register') }}">
+                <img src="{{ asset('bundles/lfsmdonateur/images/new_item.png') }}" border="0" onmouseover="montre('Nouveau');" onmouseout="cache();">
+            </a>
+        </div>
+        <div class="pagination_navigation">
+            <div class="pagination_custom">
+                <p>Page {{pagination.getCurrentPageNumber}}/{{totalPages}} ({{pagination.getTotalItemCount}} entrées)</p>
+            </div>
+            <div class="navigation">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+        </div>
+        <table width="100%">
+            <tbody>
+                <tr>
+                    <th width="15%">{{ knp_pagination_sortable(pagination, 'Login', 'q.username') }}</th>
+                    <th width="15%">{{ knp_pagination_sortable(pagination, 'Email', 'q.email') }}</th>
+                </tr>
+                {% for entity in pagination %}
+                <tr class="fdblanc">
+                    <td><a href="{{ path('user_edit', { 'id': entity.id }) }}">{{entity.username}}</a></td>
+                    <td>{{entity.email}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>    
+    </div>
+    <div class="clear"></div>
+</div>
+{% endblock %}

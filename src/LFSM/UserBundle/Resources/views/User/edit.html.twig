@@ -1,0 +1,39 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <h3 class="new_item_h3">Mise à jour de l'utilisateur {{user.username}}</h3>
+
+    <div class="background_new_item">        
+
+        <form action="{{ path('user_update', { 'id': user.id }) }}" {{ form_enctype(edit_form) }} method="POST">
+            <div class="col_form_new_edit">
+                <table>
+                    <p>
+                        {{ form_label(edit_form.username, 'Username *') }}
+                        {{ form_widget(edit_form.username, { 'attr': {'class': 'text-input small-input validate[required]'} }) }}
+                    </p>
+                    <p>
+                        {{ form_label(edit_form.email, 'Email *') }}
+                        {{ form_widget(edit_form.email, { 'attr': {'class': 'text-input small-input validate[required]'} }) }}
+                    </p>
+                    <p>
+                        {{ form_label(edit_form.current_password, 'Current Password *') }}
+                        {{ form_widget(edit_form.current_password, { 'attr': {'class': 'text-input small-input validate[required]'} }) }}
+                        {{ form_errors(edit_form.current_password) }}
+                        
+                    </p>
+                </table>
+            </div>
+                    {{ form_rest(edit_form) }}
+                    {{ form_errors(edit_form) }}    
+
+            <div class="buttons_action">
+                <input class="button" type="submit" value="Mettre à jour" />
+            </div>
+
+        </form>
+     </div>
+    <div class="clear"></div>
+</div>   
+{% endblock %}

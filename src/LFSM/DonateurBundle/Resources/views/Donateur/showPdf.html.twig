@@ -1,0 +1,184 @@
+<table width="100%" border="0">
+    <tr>
+        <td align="left">N° Donateur</td> 
+        <td align="left">{{ donateur.id }}</td> 
+    </tr>
+    <tr>
+        <td align="left">Statut</td> 
+        <td align="left">{{ donateur.statut }}</td>  
+    </tr>
+    <tr>
+        <td align="left">Etat</td> 
+        <td align="left">{{ donateur.etat }}</td>  
+    </tr>
+    <tr>
+        <td align="left">Raison sociale</td> 
+        <td align="left">{{ donateur.rs }}</td>  
+    </tr>
+    <tr>
+        <td align="left">Fonction</td> 
+        <td align="left">{{ donateur.fonction }}</td>  
+    </tr>
+    <tr>
+        <td align="left">Civilité</td> 
+        <td align="left">{{ donateur.civilite }}</td>        
+    </tr>
+    <tr>
+        <td align="left">Nom</td> 
+        <td align="left">{{ donateur.nom }}</td></tr>
+    <tr>
+        <td align="left">Prénom</td> 
+        <td align="left">{{ donateur.prenom }}</td></tr>
+    <tr>
+        <td align="left">Adresse</td> 
+        <td align="left">{{ donateur.adresse }}</td></tr>
+    <tr>
+        <td align="left">Boite Postale</td> 
+        <td align="left">{{ donateur.bp }}</td></tr>
+    <tr>
+        <td align="left">Code Postal</td> 
+        <td width="70%" align="left">{{ donateur.cp }}</td> 
+    </tr>
+    <tr>
+        <td align="left">Ville</td> 
+        <td align="left">{{ donateur.ville }}</td>  
+    </tr>
+    <tr>
+        <td align="left">Date de naissance</td> 
+        <td align="left">{{ donateur.birthday|date('d/m/Y') }}</td>  
+    </tr>
+    <tr>
+        <td align="left">Indice T</td> 
+        <td width="70%" align="left">{% if donateur.indicet %}OUI{% else %}NON{% endif %}</td> 
+    </tr>
+    <tr>
+        <td align="left">Promesse</td> 
+        <td width="70%" align="left">{% if donateur.promesse %}OUI{% else %}NON{% endif %}</td> 
+    </tr>
+</table>
+<table width="100%" cellspacing="2" cellpadding="1" border="0">
+    <tbody>
+        <tr>
+            <td align="left">Mobile</td>
+            <td width="70%" align="left">
+                {{ donateur.telPtb }}
+            </td>
+        </tr>
+        <tr>
+            <td align="left">Téléphone domicile</td>
+            <td width="70%" align="left">
+                {{ donateur.telPrm}}
+            </td>
+        </tr>
+        <tr>
+            <td align="left">Téléphone Bureau</td>
+            <td width="70%" align="left">
+                {{ donateur.telSec }}
+            </td>
+        </tr>
+        <tr>
+            <td align="left">Fax</td>
+            <td width="70%" align="left">
+                {{ donateur.fax }}
+            </td>
+        </tr>
+        <tr>
+            <td align="left">E-mail</td>
+            <td width="70%" align="left">
+                {{ donateur.email }}
+            </td>
+        </tr>
+    </tbody>
+</table>
+<table width="100%" cellspacing="2" cellpadding="1" border="0">
+    <tbody>
+        <tr>
+            <td align="left">Date premier don</td>
+            <td width="70%" align="left">
+                {% if firstDonDate is not null %}{{ firstDonDate|date('d/m/Y') }}{% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td align="left">Date dernier don</td>
+            <td width="70%" align="left">
+                {% if lastDonDate is not null %}{{ lastDonDate|date('d/m/Y') }}{% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td align="left">Nombre de dons</td>
+            <td width="70%" align="left">
+                {{ nbDons }}
+            </td>
+        </tr>
+        <tr>
+            <td align="left">Dons cumulés</td>
+            <td width="70%" align="left">
+                {{ montantDonCumules|number_format(2, '.', ' ') }}
+            </td>
+        </tr>
+        <tr>
+            <td align="left">Don moyen</td>
+            <td width="70%" align="left">
+                {{ montantDonMoyen|number_format(2, '.', ' ') }}
+            </td>
+        </tr>
+        <tr>
+            <td align="left">Don maximum</td>
+            <td width="70%" align="left">
+                {{ montantDonMax }}
+            </td>
+        </tr>
+        <tr>
+            <td align="left">Don minimum</td>
+            <td width="70%" align="left">
+                {{ montantDonMin }}
+            </td>
+        </tr>
+        <tr>
+            <td align="left">Donateur actif</td>
+            <td width="70%" align="left">
+                {% if donateurActif %}OUI{% else %}NON{% endif %}
+            </td>
+        </tr>
+    </tbody>
+</table>
+<table width="100%" style="margin:auto; margin-top:10px">
+    <tr>
+        <th width="13%">Date Chq</th>
+        <th width="13%">Remise</th>
+        <th width="13%">Mode Paie</th>
+        <th width="13%">&euro;</th>
+    </tr>
+    {% for don in donsParDonateur %}
+        <tr class="fdblanc">
+            <td align="center">
+                {{ don.dateDon|date('d/m/Y') }}
+            </td>
+            <td align="center">
+                {{ don.dateRemiseDon|date('d/m/Y') }}
+            </td>
+            <td align="center">
+                {{ don.mdp }}
+            </td>
+            <td align="center">
+                {{ don.montant }}
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+<table width="100%" style="margin:auto; margin-top:10px">
+    <tr>
+        <th width="20%">Date</th>
+        <th width="70%">Titre</th>
+    </tr>
+    {% for note in notesParDonateur %}
+        <tr class="fdblanc">
+            <td align="center">
+                {{ note.titre }}
+            </td>
+            <td align="center">
+                {{ note.corps }}
+            </td>
+        </tr>
+    {% endfor %}
+</table>

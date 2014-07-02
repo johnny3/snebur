@@ -1,0 +1,110 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <h3 class="new_item_h3">Import base de données de donateurs</h3>
+    <p>Etape 2</p>
+
+    <div class="background_new_item">
+        {% for flashMessage in app.session.flashbag.get('success') %}
+            <div class="notification success png_bg">
+                <div>{{ flashMessage }}</div>
+            </div>
+        {% endfor %}
+        
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="notification error png_bg">
+                <div>{{ flashMessage }}</div>
+            </div>
+        {% endfor %}
+        
+        <div style="margin-top:40px">
+            <form action="{{ path('excelfile_import_treatment') }}" method="post" {{ form_enctype(csvMappingForm) }} novalidate>
+                <div class="col_form_new_edit">
+                    <table>
+                        <tr>
+                            <td>{{ form_label(csvMappingForm.civilite, 'Civilité') }}</td>
+                            <td>{{ form_widget(csvMappingForm.civilite) }}</td>        
+                        </tr>
+                        <tr>
+                            <td>{{ form_label(csvMappingForm.nom, 'Nom') }}</td>
+                            <td>{{ form_widget(csvMappingForm.nom) }}</td>        
+                        </tr>
+                        <tr>
+                            <td>{{ form_label(csvMappingForm.prenom, 'Prénom') }}</td>
+                            <td>{{ form_widget(csvMappingForm.prenom) }}</td>        
+                        </tr>
+                        <tr>
+                            <td>{{ form_label(csvMappingForm.adresse, 'Adresse') }}</td>
+                            <td>{{ form_widget(csvMappingForm.adresse) }}</td>        
+                        </tr>
+                        <tr>
+                            <td>{{ form_label(csvMappingForm.adresseComplementaire, 'Adresse complémentaire') }}</td>
+                            <td>{{ form_widget(csvMappingForm.adresseComplementaire) }}</td>        
+                        </tr>
+                        <tr>
+                            <td>{{ form_label(csvMappingForm.lieuDit, 'lieu Dit') }}</td>
+                            <td>{{ form_widget(csvMappingForm.lieuDit) }}</td>        
+                        </tr>
+                        <tr>
+                            <td>{{ form_label(csvMappingForm.bp, 'Boite Postale') }}</td>
+                            <td>{{ form_widget(csvMappingForm.bp) }}</td>        
+                        </tr>
+                        <tr>
+                            <td>{{ form_label(csvMappingForm.cp, 'Code Postal') }}</td>
+                            <td>{{ form_widget(csvMappingForm.cp) }}</td>        
+                        </tr>
+                        <tr>
+                            <td>{{ form_label(csvMappingForm.ville, 'Ville') }}</td>
+                            <td>{{ form_widget(csvMappingForm.ville) }}</td>        
+                        </tr>
+                        <tr>
+                            <td>{{ form_label(csvMappingForm.telPrm, 'Téléphone principal') }}</td>
+                            <td>{{ form_widget(csvMappingForm.telPrm) }}</td>        
+                        </tr>
+                        <tr>
+                            <td>{{ form_label(csvMappingForm.telSec, 'Téléphone secondaire') }}</td>
+                            <td>{{ form_widget(csvMappingForm.telSec) }}</td>        
+                        </tr>
+                        <tr>
+                            <td>{{ form_label(csvMappingForm.telPtb, 'Portable') }}</td>
+                            <td>{{ form_widget(csvMappingForm.telPtb) }}</td>        
+                        </tr>
+                        <tr>
+                            <td>{{ form_label(csvMappingForm.birthday, 'Date anniversaire') }}</td>
+                            <td>{{ form_widget(csvMappingForm.birthday) }}</td>        
+                        </tr>
+                        <tr>
+                            <td>{{ form_label(csvMappingForm.email, 'Email') }}</td>
+                            <td>{{ form_widget(csvMappingForm.email) }}</td>  
+                        </tr>
+                    </table>
+                </div>
+                    {{ form_rest(csvMappingForm) }}
+                    {{ form_errors(csvMappingForm) }}    
+
+                <div class="buttons_action">
+                    <button type="submit" class="save">&nbsp;</button>
+                </div>
+            </form>
+        </div>
+                    
+        <span id="loader_ajax" style="display: none;"><img src="{{ asset('bundles/lfsmdonateur/images/loading.gif') }}"/>TRAITEMENT EN COURS ...</span>            
+                    
+    </div>
+    <div class="clear"></div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+            $(document).ready(function() {
+                $('#submitButton').click(function(e) {
+                    e.preventDefault();
+                    $('#loader_ajax').show();
+                    $(form).submit();
+                });
+            });
+    </script>
+{% endblock %}

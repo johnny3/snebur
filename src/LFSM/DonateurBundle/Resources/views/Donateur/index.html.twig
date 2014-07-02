@@ -1,0 +1,163 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <div class="col-tableau">
+        <div class="pagination_navigation">
+            <div class="pagination_custom">
+                <p>Page {{pagination.getCurrentPageNumber}}/{{totalPages}} ({{pagination.getTotalItemCount}} entrées)</p>
+            </div>
+            <div class="navigation">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+        </div>
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <th width="15%">{{ knp_pagination_sortable(pagination, 'N° Contact', 'd.id') }}</th>
+                        <th width="25%">{{ knp_pagination_sortable(pagination, 'Raison Sociale', 'd.rs') }}</th>
+                        <th width="15%">{{ knp_pagination_sortable(pagination, 'Nom', 'd.nom') }}</th>
+                        <th width="15%">{{ knp_pagination_sortable(pagination, 'Prénom', 'd.prenom') }}</th>
+                        <th width="15%">{{ knp_pagination_sortable(pagination, 'Code Postal', 'd.cp') }}</th>
+                        <th width="15%">{{ knp_pagination_sortable(pagination, 'Etat', 'e.etat_lib') }}</th>
+                    </tr>
+            {% for key,entity in pagination %}
+                    <tr class="{{ cycle(['fdblanc', 'fdbleu'], key) }}">
+                        <td><a href="{{ path('donateur_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                        <td><a href="{{ path('donateur_show', { 'id': entity.id }) }}">{{ entity.rs }}</a></td>
+                        <td><a href="{{ path('donateur_show', { 'id': entity.id }) }}">{{ entity.nom }}</a></td>
+                        <td><a href="{{ path('donateur_show', { 'id': entity.id }) }}">{{ entity.prenom }}</a></td>
+                        <td><a href="{{ path('donateur_show', { 'id': entity.id }) }}">{{ entity.cp }}</a></td>
+                        <td><a href="{{ path('donateur_show', { 'id': entity.id }) }}">{{ entity.etat }}</a></td>
+                    </tr>
+            {% endfor %}
+                </tbody>
+            </table>
+            </div>
+            <div class="col-search">
+                <div class="titre-search">
+                    <p>Rechercher un contact</p>
+
+                    <form action="{{ path('donateur_search') }}" method="get" {{ form_enctype(form) }} novalidate>
+                        <table>
+                            <tr>
+                                <td>{{ form_label(form.id, 'N° Contact') }}</td> 
+                                <td>{{ form_widget(form.id) }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>{{ form_label(form.rs, 'Raison Sociale') }}</td>
+                                <td>{{ form_widget(form.rs) }}</td>
+                            </tr>
+
+
+                            <tr>
+                                <td>{{ form_label(form.civilite, 'Civilite') }}</td>
+                                <td>{{ form_widget(form.civilite) }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>{{ form_label(form.nom, 'Nom') }}</td>
+                                <td>{{ form_widget(form.nom) }}</td>
+                            </tr>
+
+
+                            <tr>
+                                <td>{{ form_label(form.prenom, 'Prénom') }}</td>
+                                <td>{{ form_widget(form.prenom) }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>{{ form_label(form.cp, 'Code Postal') }}</td>
+                                <td>{{ form_widget(form.cp) }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>{{ form_label(form.ville, 'Ville') }}</td>
+                                <td>{{ form_widget(form.ville) }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>{{ form_label(form.etat, 'Etat') }}</td>
+                                <td>{{ form_widget(form.etat) }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>{{ form_label(form.statut, 'Statut') }}</td>
+                                <td>{{ form_widget(form.statut) }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>{{ form_label(form.birthday, 'Date de naissance') }}</td>
+                                <td>{{ form_widget(form.birthday) }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>{{ form_label(form.statutSocial, 'Statut Social') }}</td>
+                                <td>{{ form_widget(form.statutSocial) }}</td>
+                            </tr>
+                            
+                            <tr>
+                                <td>{{ form_label(form.nombreEnfants, 'Nombre d\'enfants') }}</td>
+                                <td>{{ form_widget(form.nombreEnfants) }}</td>
+                            </tr>
+                            
+                            <tr>
+                                <td>{{ form_label(form.hasEmail, 'Email') }}</td>
+                                <td>{{ form_widget(form.hasEmail) }}</td>
+                            </tr>
+                            
+                            <tr>
+                                <td>{{ form_label(form.hasPhoneNumber, 'Tel') }}</td>
+                                <td>{{ form_widget(form.hasPhoneNumber) }}</td>
+                            </tr>
+                            
+                            <tr>
+                                <td>{{ form_label(form.modeDePaiement, 'Mode de Paiement') }}</td>
+                                <td>{{ form_widget(form.modeDePaiement) }}</td>
+                            </tr>
+                            
+                            <tr>
+                                <td>{{ form_label(form.nbAnneesFidelite, 'Nb Années Fidélité') }}</td>
+                                <td>{{ form_widget(form.nbAnneesFidelite) }}</td>
+                            </tr>
+
+                    {{ form_rest(form) }}
+                    {{ form_errors(form) }}
+
+                        </table>
+
+                    <button type="submit">Recherche</button>
+
+                    </form>
+
+                    <div class="new_item">
+                        <a href="{{ path('donateur_new') }}">
+                            <img src="{{ asset('bundles/lfsmdonateur/images/new_item.png') }}" border="0" onmouseover="montre('Nouveau contact');" onmouseout="cache();">
+                        </a>
+                        <a  id="export_csv" href="{{ path('export_csv') }}" style="vertical-align:top; margin-left:60px;">
+                            <img src="{{ asset('bundles/lfsmdonateur/images/excel.gif') }}" border="0" width="25px" onmouseover="montre('export excel');" onmouseout="cache();">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        <div class="clear"></div>
+        </div>
+ 
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+            $(document).ready(function() {
+                var href = $(location).attr('href');
+                var parametersUrl = href.split('?');
+                var parameters= parametersUrl[1];
+                
+                if(typeof parameters !== 'undefined'){
+                    var url = '{{ path('export_csv') }}' + '?' + parameters;
+                    $('#export_csv').attr('href',url);
+                };
+            });
+    </script>     
+{% endblock %}

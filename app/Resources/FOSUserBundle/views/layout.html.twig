@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        
+     {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('bundles/lfsmuser/css/autre.css') }}" type="text/css" media="all" />
+     {% endblock %}
+        
+    </head>
+    <body>
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            {#{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+            <a href="{{ path('fos_user_security_logout') }}">
+                {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+            </a> #}
+            <div id="curseur" class="infobulle"></div>
+            <div align="center" class="menu">
+                <table width="100%" border="0">
+                    <tr>
+                        <td width="55%" align="left" class="titre">LFSM </td>
+                        <td width="5%" align="center"><a href="{{ path('donateur') }}" target="_self"><img src="{{ asset('bundles/lfsmdonateur/images/recherche.png') }}" border="0" onmouseover="montre('Rechercher un contact');" onmouseout="cache();"></a></td>
+                  {#      <td width="5%" align="center"><a href="#" target="detail"><img src="{{ asset('bundles/lfsmdonateur/images/action.png') }}" border="0" onmouseover="montre('Sélection');" onmouseout="cache();"></a></td>  #}
+                  {#      <td width="5%" align="center"><a href="#" target="detail"><img src="{{ asset('bundles/lfsmdonateur/images/liste.gif') }}" border="0" onmouseover="montre('Reçus libératoires');" onmouseout="cache();"></a></td>  #}
+                  {#      <td width="5%" align="center"><a href="#" target="detail"><img src="{{ asset('bundles/lfsmdonateur/images/liste.png') }}" border="0" onmouseover="montre('Listes');" onmouseout="cache();"></a></td>  #}
+                  {#      <td width="5%" align="center"><a href="#" target="detail"><img src="{{ asset('bundles/lfsmdonateur/images/satistiques.png') }}" border="0" onmouseover="montre('Statistiques');" onmouseout="cache();"></a></td>  #}
+                        <td width="5%" align="center"><a href="{{ path('admin') }}" target="_self"><img src="{{ asset('bundles/lfsmdonateur/images/parametre.png') }}" border="0" onmouseover="montre('Paramètres');" onmouseout="cache();"></a></td>
+                  {#      <td width="5%" align="center"><a href="#" target="detail"><img src="{{ asset('bundles/lfsmdonateur/images/archive.png') }}" border="0" onmouseover="montre('Historisation des dons');" onmouseout="cache();"></a></td>  #}
+                        <td width="5%" align="center"><a href="{{path('fos_user_security_logout')}}"><img src="{{ asset('bundles/lfsmdonateur/images/quitter.png') }}" border="0" onmouseover="montre('Quitter l\'application');" onmouseout="cache();"></a></td>
+                    </tr>
+                </table>
+            </div>
+        {% else %}
+            <a href="{{ path('fos_user_security_login') }}">{#{ 'layout.login'|trans({}, 'FOSUserBundle') }#}</a>
+        {% endif %}
+
+        {% for type, messages in app.session.flashbag.all() %}
+            {% for message in messages %}
+                <div class="flash-{{ type }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        <div>
+            {% block fos_user_content %}
+            {% endblock fos_user_content %}
+        </div>
+    </body>
+</html>

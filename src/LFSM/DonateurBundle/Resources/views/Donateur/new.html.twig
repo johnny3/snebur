@@ -1,0 +1,138 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <h3 class="new_item_h3">Nouveau contact</h3>
+
+    <div class="background_new_item">
+        <form action="{{ path('donateur_create') }}" method="post" {{ form_enctype(form) }}>
+            <div class="col_left_form">
+            
+                <table>
+                    <tr>
+                       <td>{{ form_label(form.statut, 'Statut') }}</td>
+                       <td>{{ form_widget(form.statut) }}</td>        
+                    </tr>
+
+                    <tr>
+                        <td>{{ form_label(form.etat, 'Etat') }}</td>
+                        <td>{{ form_widget(form.etat) }}</td>        
+                    </tr>
+
+                    <tr>
+                        <td>{{ form_label(form.fonction, 'Fonction') }}</td>
+                        <td>{{ form_widget(form.fonction) }}</td>        
+                    </tr>
+
+                    <tr>
+                        <td>{{ form_label(form.rs, 'Raison Sociale') }}</td>
+                        <td>{{ form_widget(form.rs) }}</td>        
+                    </tr>
+
+                    <tr>
+                        <td>{{ form_label(form.civilite, 'Civilité') }}</td>
+                        <td>{{ form_widget(form.civilite) }}</td>        
+                    </tr>
+
+                    <tr>
+                        <td>{{ form_label(form.nom, 'Nom') }}</td>
+                        <td>{{ form_widget(form.nom) }}</td>        
+                    </tr>
+
+                    <tr>
+                        <td>{{ form_label(form.prenom, 'Prénom') }}</td>
+                        <td>{{ form_widget(form.prenom) }}</td>        
+                    </tr>
+
+                    <tr>
+                        <td>{{ form_label(form.adresse, 'Adresse') }}</td>
+                        <td>{{ form_widget(form.adresse) }}</td>        
+                    </tr>
+                    
+                    <tr>
+                        <td>{{ form_label(form.adresseComplementaire, 'Complément d\'adresse') }}</td>
+                        <td>{{ form_widget(form.adresseComplementaire) }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>{{ form_label(form.bp, 'Boite Postale') }}</td>
+                        <td>{{ form_widget(form.bp) }}</td>        
+                    </tr>
+
+                    <tr>
+                        <td>{{ form_label(form.cp, 'Code Postal') }}</td>
+                        <td>{{ form_widget(form.cp) }}</td>        
+                    </tr>
+                    
+                    <tr>
+                        <td>{{ form_label(form.lieuDit, 'Lieu Dit') }}</td>
+                        <td>{{ form_widget(form.lieuDit) }}</td>        
+                    </tr>
+
+                    <tr>
+                        <td>{{ form_label(form.ville, 'Ville') }}</td>
+                        <td>{{ form_widget(form.ville) }}</td>        
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="col_right_form">
+                <table>
+                    <tr>
+                        <td>{{ form_label(form.birthday, 'Date de Naissance') }}</td>
+                        <td>{{ form_widget(form.birthday) }}</td>        
+                    </tr>
+
+                    <tr>
+                        <td>{{ form_label(form.telPtb, 'Mobile') }}</td>
+                        <td>{{ form_widget(form.telPtb) }}</td>        
+                    </tr>
+
+                    <tr>
+                        <td>{{ form_label(form.telPrm, 'Téléphone Domicile') }}</td>
+                        <td>{{ form_widget(form.telPrm) }}</td>        
+                    </tr>
+
+                    <tr>
+                        <td>{{ form_label(form.telSec, 'Téléphone Bureau') }}</td>
+                        <td>{{ form_widget(form.telSec) }}</td>        
+                    </tr>
+
+                    <tr>
+                        <td>{{ form_label(form.fax, 'Fax') }}</td>
+                        <td>{{ form_widget(form.fax) }}</td>        
+                    </tr>
+
+                    <tr>
+                        <td>{{ form_label(form.email, 'Email') }}</td>
+                        <td>{{ form_widget(form.email) }}</td>        
+                    </tr>
+                    
+                    <tr>
+                        <td>{{ form_label(form.nombreEnfants, 'Nombre d\'enfants') }}</td>
+                        <td>{{ form_widget(form.nombreEnfants) }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>{{ form_label(form.indice_t, 'Indice T') }}</td>
+                        <td>{{ form_widget(form.indice_t) }}</td>        
+                    </tr>
+
+                    <tr>
+                        <td>{{ form_label(form.promesse, 'Promesse') }}</td>
+                        <td>{{ form_widget(form.promesse) }}</td>        
+                    </tr>
+                </table>
+            </div>
+            
+            {{ form_rest(form) }}
+            {{ form_errors(form) }}    
+
+            <p>
+                <button type="submit" class="save">&nbsp;</button>
+            </p>
+        </form>
+    </div>
+    <div class="clear"></div>
+</div>
+{% endblock %}

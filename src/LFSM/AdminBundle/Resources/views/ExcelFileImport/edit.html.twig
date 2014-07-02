@@ -1,0 +1,57 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <h3 class="new_item_h3">Import base de données de donateurs</h3>
+    <p>Etape 1</p>
+
+    <div class="background_new_item">
+        <form id="lfsm_adminbundle_excelfileimport" action="{{ path('excelfile_import_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+            <input type="hidden" name="_method" value="PUT" />
+            <div class="col_form_new_edit">
+                <table>
+                    <tr>
+                        <td>{{ form_label(edit_form.file, 'Fichier à uploader') }}</td>
+                        <td>{{ form_widget(edit_form.file) }}</td>        
+                    </tr>
+                </table>
+            </div>
+                {{ form_rest(edit_form) }}
+                {{ form_errors(edit_form) }}    
+
+            <div class="buttons_action">
+                <button id='submitButton' type="submit" class="save">&nbsp;</button>
+            </div>
+        </form>
+        <br>
+        <span id="loader_ajax" style="display: none;"><img src="{{ asset('bundles/lfsmdonateur/images/loading.gif') }}"/>TRAITEMENT EN COURS ...</span>
+        
+        {% for flashMessage in app.session.flashbag.get('success') %}
+            <div class="notification success png_bg">
+                <div>{{ flashMessage }}</div>
+            </div>
+        {% endfor %}
+        
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="notification error png_bg">
+                <div>{{ flashMessage }}</div>
+            </div>
+        {% endfor %}
+        
+    </div>
+    <div class="clear"></div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+            $(document).ready(function() {
+                $('#submitButton').click(function(e) {
+                    e.preventDefault();
+                    $('#loader_ajax').show();
+                    $('#lfsm_adminbundle_excelfileimport').submit();
+                });
+            });
+    </script>
+{% endblock %}

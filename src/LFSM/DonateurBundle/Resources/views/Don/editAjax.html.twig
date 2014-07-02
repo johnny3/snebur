@@ -1,0 +1,69 @@
+<div class="bloc" data-id="edition-don" style="position:relative">
+    <h3 id="titre_info_donateur_section">Edition du don</h3>
+
+    <div class="bloc_info">
+        <form id="edition-don-save" method="post" action="{{ path('don_update', { 'id': don.id }) }}" {{ form_enctype(form_edit_don) }} novalidate>
+            <div id="lfsm_donateurbundle_dontype">
+                <table width="60%" style="margin:auto;">
+                    <tr>
+                       <td>{{ form_label(form_edit_don.dateDon, 'Date du don') }}</td>
+                       <td>{{ form_widget(form_edit_don.dateDon) }}</td>        
+                    </tr>
+
+                    <tr>
+                        <td>{{ form_label(form_edit_don.montant, 'Montant') }}</td>
+                        <td>{{ form_widget(form_edit_don.montant, { 'attr': {'class': 'validate[required,custom[number]]'} }) }}</td>        
+                    </tr>
+
+                    <tr>
+                        <td>{{ form_label(form_edit_don.mdp, 'Mode de paiement') }}</td>
+                        <td>{{ form_widget(form_edit_don.mdp) }}</td>        
+                    </tr>
+
+                    <tr>
+                        <td>{{ form_label(form_edit_don.dateRemiseDon, 'Date Remise Don') }}</td>
+                        <td>{{ form_widget(form_edit_don.dateRemiseDon) }}</td>        
+                    </tr>
+
+                    <tr>
+                        <td>{{ form_label(form_edit_don.numCheque, 'Numéro de chèque') }}</td>
+                        <td>{{ form_widget(form_edit_don.numCheque) }}</td>        
+                    </tr>
+
+                    <tr>
+                        <td>{{ form_label(form_edit_don.banque, 'Banque') }}</td>
+                        <td>{{ form_widget(form_edit_don.banque) }}</td>        
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form_edit_don.action, 'Action') }}</td>
+                        <td>{{ form_widget(form_edit_don.action) }}</td>        
+                    </tr>
+                </table>
+            </div>
+            {{ form_rest(form_edit_don) }}
+            {{ form_errors(form_edit_don) }}
+            <p>
+                <button type="submit" class="save">&nbsp;</button>
+            </p>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("form#edition-don-save").validationEngine();
+        
+        $('#lfsm_donateurbundle_dontype_mdp').change(function(){
+            var mdp = $('#lfsm_donateurbundle_dontype_mdp option:selected').text();
+            
+            if (mdp.substr(0, 6) === 'CHEQUE'){
+                $('#lfsm_donateurbundle_dontype_numCheque').attr('class', 'validate[required]');
+                $('#lfsm_donateurbundle_dontype_banque').attr('class', 'validate[required]');
+            }
+            else {
+                $('#lfsm_donateurbundle_dontype_numCheque').removeClass('validate[required]');
+                $('#lfsm_donateurbundle_dontype_banque').removeClass('validate[required]');
+            }
+        });
+    });
+</script>

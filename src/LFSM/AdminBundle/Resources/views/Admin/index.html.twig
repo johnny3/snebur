@@ -1,0 +1,20 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <h3>Paramétrage de l'application</h3>
+
+    <div class="background_new_item">
+        <table class="tableau_milieu">
+            {% for key,menu_item in menu_items %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td><a href="{{path(menu_item)}}"><img src="{{ asset('bundles/lfsmdonateur/images/preview-icone-9554-32.png') }}" border="0"></a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    
+    <div class="clear"></div>
+</div>
+{% endblock %}

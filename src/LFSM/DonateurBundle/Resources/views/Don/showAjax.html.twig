@@ -1,0 +1,50 @@
+<div class="bloc_info_blanc" style="margin-top:30px">
+    <table width="80%" border="0" style="margin:auto">
+        <tbody>
+            <tr>
+                <th width="20%">N° Chq</th>
+                <th width="40%">Banque</th>
+                <th width="40%">Date de saisie</th>
+                <th width="40%">Action</th>
+            </tr>
+            <tr class="fdblanc">
+                <td align="left">{{ don.numCheque }}</td>
+                <td align="left">{{ don.banque }}</td>
+                <td align="center"></td>
+                <td align="center"><a id="don_edit" data-donId="{{ don.id }}">Modif.</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('div.bloc_info_blanc a#don_edit').click(function(){
+            var donId = $(this).attr('data-donId');
+            var blocDetail = $(this).parents().find('[data-id="detail"]');
+            blocDetail.hide();
+            
+            $.ajax({
+                url: "{{ path('don_edit_ajax') }}",
+                type: "POST",
+                beforeSend: function(){
+                    $('#response_ajax_don_edit').html('');
+                    $('#loader_ajax_don_edit').show();
+                },
+                complete: function(){
+                    $('#loader_ajax_don_edit').hide();
+                },
+                data: {
+                    donId: donId
+                },
+                success: function (response) {
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    $('#response_ajax_don_edit').html('Une erreur interne est survenue.');
+                }
+            }).done(function( response ) {
+                $('#response_ajax_don_edit').html(response).fadeIn();
+            });
+        });
+    });
+</script>

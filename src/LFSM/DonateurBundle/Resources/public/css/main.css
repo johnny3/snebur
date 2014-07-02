@@ -1,0 +1,415 @@
+/* ************************ *
+ *      style général       *
+ * ************************ */
+
+html,body{ 
+    font-family: Arial, Helvetica, sans-serif;
+    color:#000000;
+    font-size: 14px; 
+    background-color:#8EA3BD;
+    margin: 0;  /* il est conseillé de mettre à zéro la marge et le remplissage de l'élément body, pour tenir compte des différentes valeurs par défaut des navigateurs */
+    padding: 0; 
+    text-align: center; /* ce paramétrage centre le conteneur dans les navigateurs IE 5.x. Le texte est ensuite aligné à gauche (valeur par défaut) dans le sélecteur #container */
+}
+
+.infobulle{
+    position: absolute;   
+    visibility : hidden;
+    border: 1px solid Black;
+    padding: 10px;
+    font-family: Verdana, Arial;
+    font-size: 10px;
+    background-color: #8E99B0;
+    color:#FFFFFF;
+}
+
+.menu{
+    margin-left: 15px;
+    width: 1200px;
+}
+
+.container{
+    background-color: #C6D1DE;
+    border: thin solid black;
+    color: #3A5987;
+    margin-left: 15px;
+    min-height: 290px;
+    padding-bottom: 150px;
+    width: 97%;
+}
+
+.clear{
+    clear:both;
+}
+
+.titre {
+    color: #3a5987;
+    font-family: Calibri;
+    font-size: 27px;
+}
+
+a {
+    color:#333333;
+    text-decoration:none;
+    text-align:center;
+}
+
+a:hover {
+    color:#FFFFFF;
+    text-decoration:none;
+}
+
+table {
+    font-size: 13px;
+    text-align: left;
+}
+
+th {
+    background-color: #8E99B0;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 13px;
+    text-align:center;
+}
+
+table td label{
+    font-weight: bold;
+}
+
+.fdblanc {
+    background-color: #FFFFFF;
+    color: #000000;
+}
+
+.fdbleu {
+    background-color: #A6C4E7;
+    color: #000000;
+}
+
+.fdblanc td, .fdbleu td {
+    height:33px;
+    padding-left: 5px;
+}
+
+.fdblanc td a, .fdbleu td a{
+    color:#000;
+}
+
+
+/* ************************ *
+ *      page d'accueil      *
+ * ************************ */
+
+.col-tableau{
+    display:inline-block;
+    vertical-align: top;
+    width: 68%;
+}
+
+.col-search{
+    display:inline-block;
+    vertical-align: top;
+    width:28%;
+    margin-left:35px;
+    min-height: 320px;
+    margin-bottom: 80px;
+}
+
+
+.pagination_navigation{
+    height: 40px;
+}
+
+.pagination_custom{
+    float:left;
+}
+
+.navigation{
+    float: right;
+    height: 30px;
+    margin-top: 10px;
+}
+
+.pagination_custom p{
+    margin: 0 0 0 5px;
+    padding-top:10px;
+    text-align: left;
+}
+
+.titre-search{
+    height:40px;
+    width:100%;
+    line-height: 10px;
+    text-align: left;
+}
+
+.titre-search p{
+    margin: 0 0 0 5px;
+    padding-top:10px;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom:30px;
+}
+
+.titre-search form button {
+    background-color: #8E99B0;
+    border: 2px outset #A6BEDE;
+    color: #FFFFFF;
+    cursor: pointer;
+    width: 280px;
+    margin-top: 15px;
+}
+
+.new_item{
+    margin-top: 15px;
+    text-align: center;
+    width: 280px;
+}
+
+
+.col-search table td input{
+    width:155px;
+}
+
+.col-search table td select{
+    width:160px;
+}
+
+.col-search #lfsm_donateurbundle_donateurfiltertype_birthday select{
+    width:53px;
+}
+
+/* ************************ *
+ *  page création donateur  *
+ * ************************ */
+
+.new_item_h3{
+    text-align: center;
+    margin-left:30px;
+}
+
+.background_new_item{
+    background-color: #D8D8D8;
+    margin: 0 30px;
+    padding: 15px;
+}
+
+.col_left_form table td + td, .col_right_form table td + td{
+    padding-left:30px;
+}
+
+.col_left_form table td select, 
+.col_right_form table td select{
+    width:235px;
+}
+
+
+.col_left_form table td input, 
+.col_right_form table td input{
+    width:230px;
+}
+
+.col_right_form table td #lfsm_donateurbundle_donateurtype_birthday select{
+    width:76px;
+}
+.col_right_form table td input#lfsm_donateurbundle_donateurtype_indice_t,
+.col_right_form table td input#lfsm_donateurbundle_donateurtype_promesse{
+    width: 0px;
+    margin-left: 0;
+}
+
+.col_left_form{
+    vertical-align: top;
+    display:inline-block;
+    width: 500px;
+}
+
+.col_right_form{
+    vertical-align: top;
+    display:inline-block;
+
+}
+
+form button.save[type="submit"]{
+    background: url("../images/save.gif") no-repeat transparent;
+    border: 0 none;
+    height: 25px;
+    width: 25px;
+    cursor:pointer;
+    vertical-align: top;
+    margin-top: 2px;
+}
+
+/* ************************ *
+ *  page création etat, fonction, etc  *
+ * ************************ */
+
+form button.delete[type="submit"] {
+    background: url("../images/Delete.gif") no-repeat scroll 0 0 transparent;
+    border: 0 none;
+    cursor: pointer;
+    height: 30px;
+    width: 25px;
+}
+
+#lfsm_donateurbundle_contactdonfiltertype button, #lfsm_donateurbundle_datemontantfiltertype button{
+    background: url("../images/preview-icone-9554-32.png") no-repeat scroll 0 0 transparent;
+    border: 0 none;
+    cursor: pointer;
+    height: 32px;
+    width: 32px;
+}
+
+.buttons_action{
+    margin: 15px auto auto;
+    width: 75px;
+}
+
+.buttons_action button.save, .buttons_action #form{
+    display:inline-block;
+}
+
+.background_new_item .col_form_new_edit{
+    margin: auto;
+    width:30%;
+}
+
+.background_new_item .col_form_new_edit table td{
+    padding-right: 40px;
+}
+
+.background_new_item .col_form_new_edit table td+td input{
+    width: 230px;
+}
+
+.background_new_item form .col_form_new_edit table td #lfsm_donateurbundle_listetype_etat input{
+    width: 115px;
+}
+
+.background_new_item .col_form_new_edit table{
+
+}
+
+.delete_link{
+    display:inline-block;
+}
+
+.buttons_action a.delete_link{
+    margin-left:10px;
+}
+
+.buttons_action a.delete_link img{
+    
+}
+
+.background_new_item .col_form_new_edit table td select{
+    width: 235px;
+}
+
+.background_new_item form.fos_user_registration_register input.button{
+    background: url('../images/save.gif') top left no-repeat;
+    border: 0 none;
+    height: 27px;
+    width: 27px;
+    cursor: pointer;
+    margin: 0 0 0 80px;
+}
+
+
+/* ************************ *
+ *   page show donateur     *
+ * ************************ */
+
+.bloc_header{
+    text-align: left;
+}
+
+.bloc_header ul{
+    float: right;
+    margin-right: 30px;
+}
+
+.bloc_header ul li{
+    display: inline-block;
+    height: 32px;
+    margin-left: 10px;
+    vertical-align: top;
+}
+
+.bloc_header ul li a{
+}
+
+.bloc_header ul li a img{
+}
+
+#col2_donateur .menu_header{
+    margin-top: 5px;
+}
+
+#col1_donateur {
+    float: left;
+    margin-left: 1%;
+    width: 38%;
+}
+
+#col1_donateur form button[type="submit"]{
+    background: url("../images/Delete.gif") no-repeat transparent;
+    border: 0 none;
+    height: 30px;
+    width: 25px;
+    cursor:pointer;
+}
+
+#col2_donateur {
+    float: left;
+    margin-left: 1%;
+    width: 58%;
+    background-color: #D8D8D8;
+    min-height: 475px;
+}
+
+#col2_donateur #info_donateur{
+
+}
+
+#col2_donateur #info_donateur .bloc .bloc_info{
+    background-color: #C6D1DE;
+}
+
+#col2_donateur #info_donateur .bloc .bloc_info{
+    margin: 0 40px;
+    padding:30px;
+}
+
+.bloc_info_don{
+    text-align:-moz-center;
+    text-align:-webkit-center;
+    padding:30px;
+}
+
+#col2_donateur a#detail-don, #col2_donateur a#note_edit, #col2_donateur a#don_edit{
+    cursor:pointer;
+}
+
+#col2_donateur input#lfsm_donateurbundle_notedonateurtype_titre{
+    width: 350px;
+}
+
+#col2_donateur textarea#lfsm_donateurbundle_notedonateurtype_corps{
+    width: 350px;
+    height: 150px;
+}
+
+/* ************************ *
+ *     page menu admin      *
+ * ************************ */
+
+.background_new_item .tableau_milieu{
+    margin: auto;
+    width:30%;
+}
+
+.new_item_admin{
+    margin-top: 15px;
+    text-align: right;
+}

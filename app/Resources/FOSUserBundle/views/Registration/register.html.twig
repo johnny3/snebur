@@ -1,0 +1,18 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('bundles/lfsmdonateur/css/main.css') }}" type="text/css" media="all" />
+{% endblock %}    
+        
+{% block fos_user_content %}        
+        
+<div class="container">
+    <h3 class="new_item_h3">Creation d'un utilisateur</h3>
+
+    <div class="background_new_item">        
+        {% include "FOSUserBundle:Registration:register_content.html.twig" %}
+     </div>
+    <div class="clear"></div>
+</div>       
+{% endblock fos_user_content %}
+

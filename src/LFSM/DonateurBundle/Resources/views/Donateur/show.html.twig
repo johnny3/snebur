@@ -1,0 +1,599 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+<div class="container">
+
+    <div id="col1_donateur">
+        <div class="bloc_header">
+            <ul>
+                <li>
+                 {#   <a href="#" target="_blanc">   #}
+                    <img src="{{ asset('bundles/lfsmdonateur/images/menubut_MyDesk.gif') }}" border="0" onmouseover="montre('Fiche contact');" onmouseout="cache();">
+                 {#   </a>   #}
+                </li>
+                <li>
+                    <a href="{{ path('donateur_edit', { 'id': donateur.id }) }}">
+                        <img src="{{ asset('bundles/lfsmdonateur/images/update.png') }}" border="0" onmouseover="montre('Modifier le contact');" onmouseout="cache();">
+                    </a>
+                </li>
+                {#<li>
+                    <a href="{{ path('donateur_new') }}">
+                        <img src="{{ asset('bundles/lfsmdonateur/images/new_item.png') }}" border="0" onmouseover="montre('Nouveau contact');" onmouseout="cache();">
+                    </a>
+                </li>#}
+                <li>
+                    <form action="{{ path('donateur_delete', { 'id': donateur.id }) }}" method="post">
+                        {{ form_widget(delete_form) }}
+                        <button type="submit" onclick="return confirm('Etes-vous sûr de vouloir supprimer le donateur {{ donateur.nom }} {{ donateur.prenom }} ?')" onmouseover="montre('Supprimer le contact');" onmouseout="cache();">&nbsp;</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+
+        <table width="97%" border="0">
+            <tr>
+                <td align="left">N° Donateur</td> 
+                <td align="left"><input type="text" size="50" value="{{ donateur.id }}" disabled></td> 
+            </tr>
+            <tr>
+                <td align="left">Statut</td> 
+                <td align="left"><input type="text" size="50" value="{{ donateur.statut }}" disabled/></td>  
+            </tr>
+            <tr>
+                <td align="left">Etat</td> 
+                <td align="left"><input type="text" size="50" value="{{ donateur.etat }}" disabled/></td>  
+            </tr>
+            <tr>
+                <td align="left">Raison sociale</td> 
+                <td align="left"><input type="text" size="50" value="{{ donateur.rs }}" disabled/></td>  
+            </tr>
+            <tr>
+                <td align="left">Fonction</td> 
+                <td align="left"><input type="text" size="50" value="{{ donateur.fonction }}" disabled/></td>  
+            </tr>
+            <tr>
+                <td align="left">Civilité</td> 
+                <td align="left"><input type="text" size="50" value="{{ donateur.civilite }}" disabled/></td>        
+            </tr>
+            <tr>
+                <td align="left">Nom</td> 
+                <td align="left"><input type="text" size="50" value="{{ donateur.nom }}" disabled/></td></tr>
+            <tr>
+                <td align="left">Prénom</td> 
+                <td align="left"><input type="text" size="50" value="{{ donateur.prenom }}" disabled/></td></tr>
+            <tr>
+                <td align="left">Adresse</td> 
+                <td align="left"><input type="text" size="50" value="{{ donateur.adresse }}" disabled/></td></tr>
+            <tr>
+            <tr>
+                <td align="left">Adresse Complémentaire</td> 
+                <td align="left"><input type="text" size="50" value="{{ donateur.adresseComplementaire }}" disabled/></td></tr>
+            <tr>
+                <td align="left">Boite Postale</td> 
+                <td align="left"><input type="text" size="50" value="{{ donateur.bp }}" disabled/></td></tr>
+            <tr>
+                <td align="left">Code Postal</td> 
+                <td width="70%" align="left"><input type="text" size="50" value="{{ donateur.cp }}" disabled/></td> 
+            </tr>
+            <tr>
+                <td align="left">Lieu Dit</td> 
+                <td align="left"><input type="text" size="50" value="{{ donateur.lieuDit }}" disabled/></td>  
+            </tr>
+            <tr>
+                <td align="left">Ville</td> 
+                <td align="left"><input type="text" size="50" value="{{ donateur.ville }}" disabled/></td>  
+            </tr>
+            <tr>
+                <td align="left">Date de naissance</td> 
+                <td align="left"><input type="text" size="50" value="{{ donateur.birthday|date('d/m/Y') }}" disabled/></td>  
+            </tr>
+            <tr>
+                <td align="left">Statut Social</td> 
+                <td align="left"><input type="text" size="50" value="{{ donateur.statutSocial }}" disabled/></td>  
+            </tr>
+            <tr>
+                <td align="left">Nombre d'enfants</td> 
+                <td align="left"><input type="text" size="50" value="{{ donateur.nombreEnfants }}" disabled/></td>
+            </tr>
+            <tr>
+                <td align="left">Indice T</td> 
+                <td width="70%" align="left"><input type="text" size="50" value="{% if donateur.indicet %}OUI{% else %}NON{% endif %}" disabled/></td> 
+            </tr>
+            <tr>
+                <td align="left">Promesse</td> 
+                <td width="70%" align="left"><input type="text" size="50" value="{% if donateur.promesse %}OUI{% else %}NON{% endif %}" disabled/></td> 
+            </tr>
+        </table>
+
+    </div>
+
+
+    <div id="col2_donateur">
+        <div class="tabs" id="tabs1">
+            <table width="100%" border="1" cellpadding="1" class="menu_header">
+                <tr>
+                    <td width="25%" align="center"><a id="onglet-communication" href="#communication">Communication</a></td>
+                    <td width="25%" align="center"><a id="onglet-synthese-dons" href="#synthese">Synthèse dons</a></td>
+                    <td width="25%" align="center"><a id="onglet-details-dons" href="#detail">Détail dons</a></td>
+                    <td width="25%" align="center"><a id="onglet-note" href="#note">Note</a></td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="info_donateur">
+
+            <div class="bloc" data-id="communication">
+                <h3 id="titre_info_donateur_section">Communication</h3>
+
+                <div class="bloc_info">
+                    <table width="90%" cellspacing="2" cellpadding="1" border="0">
+                        <tbody>
+                            <tr>
+                                <td align="left">Mobile</td>
+                                <td width="70%" align="left">
+                                    <input type="text" value="{{ donateur.telPtb }}"size="50" disabled>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left">Téléphone domicile</td>
+                                <td width="70%" align="left">
+                                    <input type="text" value="{{ donateur.telPrm}}"size="50" disabled>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left">Téléphone Bureau</td>
+                                <td width="70%" align="left">
+                                    <input type="text" value="{{ donateur.telSec }}"size="50" disabled>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left">Fax</td>
+                                <td width="70%" align="left">
+                                    <input type="text" value="{{ donateur.fax }}"size="50" disabled>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left">E-mail</td>
+                                <td width="70%" align="left">
+                                    <input type="text" value="{{ donateur.email }}"size="50" disabled>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="bloc" data-id="synthese">
+                <h3 id="titre_info_donateur_section">Synthèse don</h3>
+
+                <div class="bloc_info">
+                    <table width="90%" cellspacing="2" cellpadding="1" border="0">
+                        <tbody>
+                            <tr>
+                                <td align="left">Date premier don</td>
+                                <td width="70%" align="left">
+                                    <input type="text" value="{% if firstDonDate is not null %}{{ firstDonDate|date('d/m/Y') }}{% endif %}" size="50" disabled>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left">Date dernier don</td>
+                                <td width="70%" align="left">
+                                    <input type="text" value="{% if lastDonDate is not null %}{{ lastDonDate|date('d/m/Y') }}{% endif %}" size="50" disabled>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left">Nombre de dons</td>
+                                <td width="70%" align="left">
+                                    <input type="text" value="{{ nbDons }}" size="50" disabled>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left">Dons cumulés</td>
+                                <td width="70%" align="left">
+                                    <input type="text" value="{{ montantDonCumules|number_format(2, '.', ' ') }}" size="50" disabled>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left">Don moyen</td>
+                                <td width="70%" align="left">
+                                    <input type="text" value="{{ montantDonMoyen|number_format(2, '.', ' ') }}" size="50" disabled>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left">Don maximum</td>
+                                <td width="70%" align="left">
+                                    <input type="text" value="{{ montantDonMax }}" size="50" disabled>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left">Don minimum</td>
+                                <td width="70%" align="left">
+                                    <input type="text" value="{{ montantDonMin }}" size="50" disabled>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left">Donateur actif</td>
+                                <td width="70%" align="left">
+                                    <input type="text" value="{% if donateurActif %}OUI{% else %}NON{% endif %}" size="50" disabled>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                              
+                <div class="bloc_info_don">               
+                    <table border="1">
+                        <tr>
+                        {% for annee, donparAnnee in donsParDonateurPourLesDixDernieresAnnees %}
+                            <th>{{ annee }}</th>
+                        {% endfor %}
+                        </tr>
+                        <tr>
+                        {% for donparAnnee in donsParDonateurPourLesDixDernieresAnnees %}
+                            <td>{{ donparAnnee }}</td>
+                        {% endfor %}
+                        </tr>
+                    </table>
+                </div> 
+            </div>
+            
+            <div id="loader_ajax_don_edit" style="display:none; margin-top:150px;"><img src="{{ asset('bundles/lfsmdonateur/images/ajax-loader.gif') }}"></div>
+            
+            <div class="bloc" data-id="detail" style="position:relative">
+                <h3 id="titre_info_donateur_section" style="margin-bottom:5px">Détails dons</h3>
+                <div style="position:absolute;top:-8px;right:41px">
+                    <a href="#nouveau-don" id="don_new">
+                        <img src="{{ asset('bundles/lfsmdonateur/images/new_item.png') }}" border="0" onmouseover="montre('Nouveau don');" onmouseout="cache();">
+                    </a>
+                    <a href="#" style="margin-left:20px;">
+                        <img src="{{ asset('bundles/lfsmdonateur/images/NewAppointment.gif') }}" border="0" onmouseover="montre('Historisation des dons');" onmouseout="cache();">
+                    </a>
+                </div>
+
+                <div class="bloc_info_blanc">
+                    <table width="90%" border="0" style="margin:auto">
+                        <!-- Partie nbre d enregistrements -->
+                        <tr>
+                            <td width="100%" align="left">Page : 1 / 1</td>
+                        </tr>
+                        <!-- fin de la partie nbre d enregistrements -->
+                    </table>
+                    <table width="90%" style="margin:auto; margin-top:10px">
+                        <tr>
+                            <th width="13%">Date Chq</th>
+                            <th width="13%">Remise</th>
+                            <th width="13%">Mode Paie</th>
+                            <th width="13%">&euro;</th>
+                            <th width="13%">Lot Reçu</th>
+                            <th width="12%">Détail</th>
+                            <th width="12%">Reçu</th>
+                            <th width="11%">Supp</th>
+                        </tr>
+                        {% for don in donsParDonateur %}
+                            <tr class="fdblanc">
+                                <td align="center">
+                                    {{ don.dateDon|date('d/m/Y') }}
+                                </td>
+                                <td align="center">
+                                    {{ don.dateRemiseDon|date('d/m/Y') }}
+                                </td>
+                                <td align="center">
+                                    {{ don.mdp }}
+                                </td>
+                                <td align="center">
+                                    {{ don.montant }}
+                                </td>
+                                <td align="center">
+                                </td>
+                                <td align="center">
+                                    <a id="detail-don" data-donId="{{ don.id }}"><img src="{{ asset('bundles/lfsmdonateur/images/SmallSearch.gif') }}"></a>
+                                </td>
+                                <td align="center">
+                                </td>
+                                <td align="center">
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                <div id="loader_ajax_detail_don" style="display:none; margin-top: 45px"><img src="{{ asset('bundles/lfsmdonateur/images/ajax-loader.gif') }}"></div>
+                <span id="response_ajax_detail_don"></span>
+                
+            </div>
+            <div class="bloc" data-id="nouveau-don" style="position:relative">
+                <h3 id="titre_info_donateur_section">Nouveau don</h3>
+
+                <div class="bloc_info">
+                    <form id="nouveau-don-save" method="post" action="{{ path('don_create', { 'donateurId': donateur.id }) }}" {{ form_enctype(form_new_don) }} novalidate>
+                        <div id="lfsm_donateurbundle_dontype">
+                            <table width="60%" style="margin:auto;">
+                                <tr>
+                                   <td>{{ form_label(form_new_don.dateDon, 'Date du don') }}</td>
+                                   <td>{{ form_widget(form_new_don.dateDon) }}</td>        
+                                </tr>
+
+                                <tr>
+                                    <td>{{ form_label(form_new_don.montant, 'Montant') }}</td>
+                                    <td>{{ form_widget(form_new_don.montant, { 'attr': {'class': 'validate[required,custom[number]]'} }) }}</td>        
+                                </tr>
+                                
+                                <tr>
+                                    <td>{{ form_label(form_new_don.mdp, 'Mode de paiement') }}</td>
+                                    <td>{{ form_widget(form_new_don.mdp) }}</td>        
+                                </tr>
+                                
+                                <tr>
+                                    <td>{{ form_label(form_new_don.dateRemiseDon, 'Date Remise Don') }}</td>
+                                    <td>{{ form_widget(form_new_don.dateRemiseDon) }}</td>        
+                                </tr>
+
+                                <tr>
+                                    <td>{{ form_label(form_new_don.numCheque, 'Numéro de chèque') }}</td>
+                                    <td>{{ form_widget(form_new_don.numCheque) }}</td>        
+                                </tr>
+
+                                <tr>
+                                    <td>{{ form_label(form_new_don.banque, 'Banque') }}</td>
+                                    <td>{{ form_widget(form_new_don.banque) }}</td>        
+                                </tr>
+                                <tr>
+                                    <td>{{ form_label(form_new_don.action, 'Action') }}</td>
+                                    <td>{{ form_widget(form_new_don.action) }}</td>        
+                                </tr>
+                            </table>
+                        </div>
+                        {{ form_rest(form_new_don) }}
+                        {{ form_errors(form_new_don) }}
+                        <p>
+                            <button type="submit" class="save">&nbsp;</button>
+                        </p>
+                    </form>
+                </div>
+            </div>
+            
+            <span id="response_ajax_don_edit"></span>
+            <div id="loader_ajax_note_edit" style="display:none; margin-top:50px;"><img src="{{ asset('bundles/lfsmdonateur/images/ajax-loader.gif') }}"></div>
+            <div class="bloc" data-id="note" style="position:relative">
+                <h3 id="titre_info_donateur_section" style="margin-bottom:5px">Note</h3>
+
+                <div class="bloc_info_blanc">
+                    <div style="position:absolute;top:-8px;right:41px">
+                        <a href="#nouvelle-note" id="note_new">
+                            <img src="{{ asset('bundles/lfsmdonateur/images/new_item.png') }}" border="0" onmouseover="montre('Nouvelle note');" onmouseout="cache();">
+                        </a>
+                    </div>
+
+                    <div class="bloc_info_blanc">
+                        <table width="90%" border="0" style="margin:auto">
+                            <!-- Partie nbre d enregistrements -->
+                            <tr>
+                                <td width="100%" align="left">Page : 1 / 1</td>
+                            </tr>
+                            <!-- fin de la partie nbre d enregistrements -->
+                        </table>
+                        <table width="90%" style="margin:auto; margin-top:10px">
+                            <tr>
+                                <th width="20%">Date</th>
+                                <th width="70%">Titre</th>
+                                <th width="10%">Action</th>
+                            </tr>
+                            {% for note in notesParDonateur %}
+                                <tr class="fdblanc">
+                                    <td align="center">
+                                        {{ note.titre }}
+                                    </td>
+                                    <td align="center">
+                                        {{ note.corps }}
+                                    </td>
+                                    <td align="center">
+                                        <a id="note_edit" data-noteId="{{ note.id }}">Modif.</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="bloc" data-id="nouvelle-note" style="position:relative">
+                <h3 id="titre_info_donateur_section">Nouvelle note</h3>
+
+                <div class="bloc_info">
+                    <form id="nouvelle-note-save" action="{{ path('notedonateur_create', { 'donateurId': donateur.id }) }}" method="post" {{ form_enctype(form_new_note_donateur) }} novalidate>
+                        <div id="lfsm_donateurbundle_notedonateurtype">
+                            <table width="60%" style="margin:auto;">
+                                <tr>
+                                    <td>{{ form_label(form_new_note_donateur.titre, 'Titre') }}</td>
+                                    <td>{{ form_widget(form_new_note_donateur.titre, { 'attr': {'class': 'textfield validate[required]'} }) }}</td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>{{ form_label(form_new_note_donateur.corps, 'Note') }}</td>
+                                    <td>{{ form_widget(form_new_note_donateur.corps, { 'attr': {'class': 'textarea validate[required]'} }) }}</td>     
+                                </tr>
+                            </table>
+                        </div>
+                        {{ form_rest(form_new_note_donateur) }}
+                        {{ form_errors(form_new_note_donateur) }}
+                        <p>
+                            <button type="submit" class="save">&nbsp;</button>
+                        </p>
+                    </form>
+                </div>
+            </div>
+            
+            <span id="response_ajax_note_edit"></span>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("form#nouveau-don-save").validationEngine();
+        $("form#nouvelle-note-save").validationEngine();
+        
+        var anchor = window.location.hash;  // On récup l'ancre dans l'url http://......#ancre
+
+        $('.tabs').each(function() {
+            var current = null;             // Permet de connaitre l'élément courant
+            var id = $(this).attr('id');    // ID de ma barre d'onglet=
+
+            // Si on a une ancre
+            if (anchor != '' && $(this).find('a[href="' + anchor + '"]').length > 0) {
+                current = anchor;
+                // Si on a une valeur de cookie
+            } else if ($.cookie('tab' + id) && $(this).find('a[href="' + $.cookie('tab' + id) + '"]').length > 0) {
+                current = $.cookie('tab' + id);
+                // Sinon current = premier lien
+            } else {
+                current = $(this).find('a:first').attr('href');
+            }
+
+            $(this).find('a[href="' + current + '"]').addClass('active');   // On ajoute la classe active sur le lien qui correspond
+            //$(this).parents().find('#titre_info_donateur_section').text($(this).find('a[href="' + current + '"]').text());
+
+            $(this).parent().find('[data-id="' + current.substring(1) + '"]').siblings('.bloc').hide();                   // On masque les éléments
+
+            $(this).find('a').click(function() {
+                var link = $(this).attr('href');
+                var title = $(this).text();
+                // On a cliqué sur l'élément déja activé
+                if (link == current) {
+                    return false;
+                } else {
+                    // On ajoute la class active sur l'onglet courant et on la supprime des autres onglets
+                    $(this).addClass('active').parent().siblings().find('a').removeClass('active');
+
+                    $(this).parents().find('[data-id="' + link.substring(1) + '"]').fadeIn().siblings('.bloc').hide();    // On masque/affiche les div suivant les cas
+                    current = link;                      // On change la valeur de l'onglet courant
+                    $.cookie('tab' + id, current);          // On stocke l'onglet courant dans les cookies
+{#                       $(this).parents().find('[data-id="'+current.substring(1)+'"] #titre_info_donateur_section').text(title);#}
+                }
+            });
+        });
+        
+        var mdp = $('#lfsm_donateurbundle_dontype_mdp option:selected').text();
+        
+        if (mdp.substr(0, 6) === 'CHEQUE'){
+            $('#lfsm_donateurbundle_dontype_numCheque').attr('class', 'validate[required]');
+            $('#lfsm_donateurbundle_dontype_banque').attr('class', 'validate[required]');
+        }
+        
+        $('#lfsm_donateurbundle_dontype_mdp').change(function(){
+            var mdp = $('#lfsm_donateurbundle_dontype_mdp option:selected').text();
+            
+            if (mdp.substr(0, 6) === 'CHEQUE'){
+                $('#lfsm_donateurbundle_dontype_numCheque').attr('class', 'validate[required]');
+                $('#lfsm_donateurbundle_dontype_banque').attr('class', 'validate[required]');
+            }
+            else {
+                $('#lfsm_donateurbundle_dontype_numCheque').removeClass('validate[required]');
+                $('#lfsm_donateurbundle_dontype_banque').removeClass('validate[required]');
+            }
+        });
+        
+        $('#don_new').click(function(){
+            $(this).parents().find('[data-id="nouveau-don"]').fadeIn().siblings('.bloc').hide();
+        });
+        
+        $('#note_new').click(function(){
+            $(this).parents().find('[data-id="nouvelle-note"]').fadeIn().siblings('.bloc').hide();
+        });
+        
+        $('#onglet-communication').click(function(){
+            $('#response_ajax_note_edit').hide();
+            $('#response_ajax_detail_don').hide();
+            $('#response_ajax_don_edit').hide();
+        });
+        
+        $('#onglet-synthese-dons').click(function(){
+            $('#response_ajax_note_edit').hide();
+            $('#response_ajax_detail_don').hide();
+            $('#response_ajax_don_edit').hide();
+        });
+        
+        $('#onglet-details-dons').click(function(){
+            $('#response_ajax_note_edit').hide();
+            $('#response_ajax_detail_don').hide();
+            $('#response_ajax_don_edit').hide();
+            $(this).parents().find('[data-id="nouveau-don"]').hide();
+            $(this).parents().find('[data-id="detail"]').fadeIn();
+        });
+        
+        $('#onglet-note').click(function(){
+            $('#response_ajax_note_edit').hide();
+            $('#response_ajax_detail_don').hide();
+            $('#response_ajax_don_edit').hide();
+            $(this).parents().find('[data-id="nouvelle-note"]').hide();
+            var blocNote = $(this).parents().find('[data-id="note"]');
+            blocNote.fadeIn();
+        });
+        
+        $('a#detail-don').click(function(){
+            var donId = $(this).attr('data-donId');
+            
+            $.ajax({
+                url: "{{ path('don_show_ajax') }}",
+                type: "POST",
+                beforeSend: function(){
+                    $('#response_ajax_detail_don').html('');
+                    $('#loader_ajax_detail_don').show();
+                },
+                complete: function(){
+                    $('#loader_ajax_detail_don').hide();
+                },
+                data: {
+                    donateurId: '{{ donateur.id }}',
+                    donId: donId
+                },
+                success: function (response) {
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    $('#response_ajax_detail_don').html('Une erreur interne est survenue.');
+                }
+            }).done(function( response ) {
+                $('#response_ajax_detail_don').show();
+                $('#response_ajax_detail_don').html(response);
+            });
+        });
+        
+        $('a#note_edit').click(function(){
+            var blocNote = $(this).parents().find('[data-id="note"]');
+            blocNote.hide();
+            
+            var href = $(this).attr('href');
+            var noteId = $(this).attr('data-noteId');
+            
+            $.ajax({
+                url: "{{ path('note_donateur_edit_ajax') }}",
+                type: "POST",
+                beforeSend: function(){
+                    $('#response_ajax_note_edit').html('');
+                    $('#loader_ajax_note_edit').show();
+                },
+                complete: function(){
+                    $('#loader_ajax_note_edit').hide();
+                },
+                data: {
+                    noteId: noteId
+                },
+                success: function (response) {
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    $('#response_ajax_note_edit').html('Une erreur interne est survenue.');
+                }
+            }).done(function( response ) {
+                $('#response_ajax_note_edit').html(response).fadeIn();
+                
+                if ($('form#edition-note-update').length){
+                    $('form#edition-note-update').validationEngine();
+                }
+            });
+        });     
+       
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+{% set etat_liste = '' %}
+
+<div class="container">
+    <h3>Gestion des listes</h3>
+    
+    <div class="col-tableau">
+        <div class="new_item_admin">
+            <a href="{{ path('liste_new') }}">
+                <img src="{{ asset('bundles/lfsmdonateur/images/new_item.png') }}" border="0" onmouseover="montre('Nouveau');" onmouseout="cache();">
+            </a>
+        </div>
+        <div class="pagination_navigation">
+            <div class="pagination_custom">
+                <p>Page {{pagination.getCurrentPageNumber}}/{{totalPages}} ({{pagination.getTotalItemCount}} entrées)</p>
+            </div>
+            <div class="navigation">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+        </div>
+        <table width="100%">
+            <tbody>
+                <tr>
+                    <th width="15%">{{ knp_pagination_sortable(pagination, 'Libellé', 'q.name') }}</th>
+                    <th width="15%">Etats</th>
+                    <th width="15%">Action</th>
+                </tr>
+                {% for entity in pagination %}
+                <tr class="fdblanc">
+                    <td>{{ entity.name }}</td>
+                    <td>
+                        {% for etat in entity.etat %}
+                            {% if loop.index != loop.last %}
+                               {% set delimiter = ',' %}
+                            {% else %}
+                               {% set delimiter = '' %}
+                            {% endif %}
+                        {{ etat ~ delimiter }}
+                    {% endfor %}
+                    </td>
+                    <td><a class="modif" href="{{ path('liste_edit', { 'id': entity.id }) }}">Modifier</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>    
+    </div>
+    <div class="clear"></div>
+</div>
+{% endblock %}

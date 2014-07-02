@@ -1,0 +1,27 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <h3 class="new_item_h3">Import base de données de donateurs</h3>
+    <p>Etape 2</p>
+
+    <div class="background_new_item">
+        <div style="margin-top:40px">
+            <p></p>
+        </div>
+        
+        {% for flashMessage in app.session.flashbag.get('success') %}
+            <div class="notification success png_bg">
+                <div>{{ flashMessage }}</div>
+            </div>
+        {% endfor %}
+        
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="notification error png_bg">
+                <div>{{ flashMessage }}</div>
+            </div>
+        {% endfor %}
+        
+    <div class="clear"></div>
+</div>
+{% endblock %}

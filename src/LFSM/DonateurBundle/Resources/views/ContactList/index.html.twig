@@ -1,0 +1,186 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <input type="hidden" name="messerr" value="" />
+    <table width="100%" border="0">
+        <tr>
+            <td width="50%" align="center"><h2>Sélections personnalisées</h2></td>
+            <td width="50%" align="center"><h2>Sélections pré-définies</h2></td>
+        </tr>
+        <tr>
+            <td align="center">
+                
+                <form action="{{ path('contact_don_filter_list') }}" method="post" {{ form_enctype(form1) }} novalidate>
+                    <div id="lfsm_donateurbundle_contactdonfiltertype">
+                        <table width="90%" border="2" bordercolor="#000033" cellpadding="1" cellspacing="3" bordercolordark="#FFFFFF" >
+                            <CAPTION>Selection des contacts</CAPTION>
+                            <tr>
+                                <td align="center"><div align="left">Par âge</div>
+                                    <table width="80%" border="0">
+                                        <tr>
+                                            <td align="left" width="40%">Age mini</td>
+                                            <td align="left" width="50%">{{ form_widget(form1.ageMin) }}</td>
+                                            <td align="center">&nbsp;</td>
+                                        </tr>
+                                        {% if form_errors(form1.ageMin) %} 
+                                                <tr>
+                                                    {{ form_errors(form1.ageMin) }}
+                                                </tr>
+                                            {% endif %}
+                                        <tr>
+                                            <td align="left" width="40%">Age maxi</td>
+                                            <td align="left" width="50%">{{ form_widget(form1.ageMax) }}</td>
+                                            <td align="center">&nbsp;</td>
+                                        </tr>
+                                        {% if form_errors(form1.ageMax) %} 
+                                                <tr>
+                                                    {{ form_errors(form1.ageMax) }}
+                                                </tr>
+                                            {% endif %}
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center"><div align="left">Dernier don compris entre</div>
+                                    <table width="80%" border="0">
+                                        <tr>
+                                            <td align="left" width="40%">Année 1</td>
+                                            <td align="left" width="50%">{{ form_widget(form1.anneeDebut) }}</td>
+                                            <td align="center">&nbsp;</td>
+                                        </tr>
+                                            {% if form_errors(form1.anneeDebut) %} 
+                                                <tr>
+                                                    {{ form_errors(form1.anneeDebut) }}
+                                                </tr>
+                                            {% endif %}
+                                        <tr>
+                                            <td align="left" width="40%">Année 2</td>
+                                            <td align="left" width="50%">{{ form_widget(form1.anneeFin) }}</td>
+                                            <td align="center">
+                                                <button type="submit" onmouseover="montre('Chercher');" onmouseout="cache();">&nbsp;</button>
+                                            </td>
+                                        </tr>
+                                            {% if form_errors(form1.anneeFin) %} 
+                                                <tr>
+                                                    {{ form_errors(form1.anneeFin) }}
+                                                </tr>
+                                            {% endif %}
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    {{ form_rest(form1) }}
+                </form>
+                <br />
+                <form action="{{ path('don_filter_list') }}" method="post" {{ form_enctype(form2) }} novalidate>
+                    <div id="lfsm_donateurbundle_datemontantfiltertype">
+                        <table width="90%" border="2" bordercolor="#000033" cellpadding="1" cellspacing="3" bordercolordark="#FFFFFF" >
+                            <CAPTION>Selection des dons</CAPTION>
+                            <tr>
+                                <td align="center"><div align="left">Entre 2 dates</div>
+                                    <table width="80%" border="0">
+                                        <tr>
+                                            <td align="left" width="40%">Début</td>
+                                            <td align="left" width="50%">{{ form_widget(form2.dateDebut) }}
+                                            </td>
+                                            <td align="center">&nbsp;</td>
+                                        </tr>
+                                        {% if form_errors(form2.dateDebut) %} 
+                                            <tr>
+                                                {{ form_errors(form2.dateDebut) }}
+                                            </tr>
+                                        {% endif %}
+                                        <tr>
+                                            <td align="left" width="40%">Fin</td>
+                                            <td align="left" width="50%">{{ form_widget(form2.dateFin) }}
+                                            </td>
+                                            <td align="center">&nbsp;</td>
+                                        </tr>
+                                        {% if form_errors(form2.dateFin) %} 
+                                            <tr>
+                                                {{ form_errors(form2.dateFin) }}
+                                            </tr>
+                                        {% endif %}
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center"><div align="left">Entre 2 montants</div>
+                                    <table width="80%" border="0">
+                                        <tr>
+                                            <td align="left" width="40%">Montant mini</td>
+                                            <td align="left" width="50%">{{ form_widget(form2.montantMin) }}</td>
+                                            <td align="center">&nbsp;</td>
+                                        </tr>
+                                        {% if form_errors(form2.montantMin) %} 
+                                            <tr>
+                                                {{ form_errors(form2.montantMin) }}
+                                            </tr>
+                                        {% endif %}
+                                        <tr>
+                                            <td align="left" width="40%">Montant maxi</td>
+                                            <td align="left" width="50%">{{ form_widget(form2.montantMax) }}</td>
+                                            <td align="center">
+                                                <button type="submit" onmouseover="montre('Chercher');" onmouseout="cache();">&nbsp;</button>
+                                            </td>
+                                        </tr>
+                                        {% if form_errors(form2.montantMax) %} 
+                                            <tr>
+                                                {{ form_errors(form2.montantMax) }}
+                                            </tr>
+                                        {% endif %}
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                {{ form_rest(form2) }}
+                </form>
+                <br />
+            </td>
+            <!--Sélections pré-définies -->
+            <td align="center">
+                <table width="90%" border="2" bordercolor="#000033" cellpadding="1" cellspacing="3" bordercolordark="#FFFFFF" >
+                    <CAPTION>Selection des contacts</CAPTION>
+                    <tr>
+                        <td align="center">
+                            <table width="80%" border="0">
+                                <tr>
+                                    <td align="left">Liste complète</td>
+                                    <td align="center">
+                                        <a href="{{ path('donateur_list') }}" target="_blank"><img src="{{ asset('bundles/lfsmdonateur/images/preview-icone-9554-32.png') }}" border="0"/></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left">Liste Indice T</td>
+                                    <td align="center">
+                                        <a href="{{ path('donateur_list', { 'indice_t': true } ) }}" target="_blank"><img src="{{ asset('bundles/lfsmdonateur/images/preview-icone-9554-32.png') }}" border="0"/></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left">Liste Indice T & promesse</td>
+                                    <td align="center">
+                                        <a href="{{ path('donateur_list', { 'indice_t': true, 'promesse': true } ) }}" target="_blank"><img src="{{ asset('bundles/lfsmdonateur/images/preview-icone-9554-32.png') }}" border="0"/></a>
+                                    </td>
+                                </tr>
+                                
+                                {% for liste in listes %}
+                                    <tr>
+                                        <td align="left">Liste {{ liste.name }}</td>
+                                        <td align="center">
+                                            <a href="{{ path('donateur_list', { 'liste': liste.id } ) }}" target="_blank"><img src="{{ asset('bundles/lfsmdonateur/images/preview-icone-9554-32.png') }}" border="0"/></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</td>
+<!-- fin Sélections pré-définies -->
+{% endblock %}

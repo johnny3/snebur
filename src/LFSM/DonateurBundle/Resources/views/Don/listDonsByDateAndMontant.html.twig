@@ -1,0 +1,54 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <div class="col-tableau" style="width:99%">
+        <div class="pagination_navigation">
+            <div class="pagination_custom">
+                <p>Page {{pagination.getCurrentPageNumber}}/{{totalPages}} ({{pagination.getTotalItemCount}} entrées)</p>
+            </div>
+            <div class="navigation">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+        </div>
+        <table>
+            <tbody>
+                <tr>
+                    <th width="5%">{{ knp_pagination_sortable(pagination, 'N° Donateur', 'donateur.id') }}</th>
+                    <th width="10%">{{ knp_pagination_sortable(pagination, 'Raison Sociale', 'donateur.rs') }}</th>
+                    <th width="5%">{{ knp_pagination_sortable(pagination, 'Civilite', 'c.civ_lib_court') }}</th>
+                    <th width="10%">{{ knp_pagination_sortable(pagination, 'Nom', 'donateur.nom') }}</th>
+                    <th width="10%">{{ knp_pagination_sortable(pagination, 'Prénom', 'donateur.prenom') }}</th>
+                    <th width="20%">{{ knp_pagination_sortable(pagination, 'Adresse', 'donateur.adresse') }}</th>
+                    <th width="5%">{{ knp_pagination_sortable(pagination, 'BP', 'donateur.bp') }}</th>
+                    <th width="5%">{{ knp_pagination_sortable(pagination, 'CP', 'donateur.cp') }}</th>
+                    <th width="10%">{{ knp_pagination_sortable(pagination, 'Ville', 'donateur.ville') }}</th>
+                    <th width="10%">{{ knp_pagination_sortable(pagination, 'Etat', 'e.etat_lib') }}</th>
+                    <th width="10%">Montant</th>
+                    <th width="10%">Mode paiement</th>
+                    <th width="10%">N° chèque</th>
+                    <th width="10%">Banque</th>
+                </tr>
+        {% for key,d in pagination %}
+                <tr class="{{ cycle(['fdblanc', 'fdbleu'], key) }}">
+                    <td><a href="{{ path('donateur_show', { 'id': d.donateur.id }) }}#detail">{{ d.donateur.id }}</a></td>
+                    <td><a href="{{ path('donateur_show', { 'id': d.donateur.id }) }}#detail">{{ d.donateur.rs }}</a></td>
+                    <td><a href="{{ path('donateur_show', { 'id': d.donateur.id }) }}#detail">{{ d.donateur.civilite }}</a></td>
+                    <td><a href="{{ path('donateur_show', { 'id': d.donateur.id }) }}#detail">{{ d.donateur.nom }}</a></td>
+                    <td><a href="{{ path('donateur_show', { 'id': d.donateur.id }) }}#detail">{{ d.donateur.prenom }}</a></td>
+                    <td><a href="{{ path('donateur_show', { 'id': d.donateur.id }) }}#detail">{{ d.donateur.adresse }}</a></td>
+                    <td><a href="{{ path('donateur_show', { 'id': d.donateur.id }) }}#detail">{{ d.donateur.bp }}</a></td>
+                    <td><a href="{{ path('donateur_show', { 'id': d.donateur.id }) }}#detail">{{ d.donateur.cp }}</a></td>
+                    <td><a href="{{ path('donateur_show', { 'id': d.donateur.id }) }}#detail">{{ d.donateur.ville }}</a></td>
+                    <td><a href="{{ path('donateur_show', { 'id': d.donateur.id }) }}#detail">{{ d.donateur.etat }}</a></td>
+                    <td><a href="{{ path('donateur_show', { 'id': d.donateur.id }) }}#detail">{{ d.montant }}</a></td>
+                    <td><a href="{{ path('donateur_show', { 'id': d.donateur.id }) }}#detail">{{ d.mdp }}</a></td>
+                    <td><a href="{{ path('donateur_show', { 'id': d.donateur.id }) }}#detail">{{ d.numCheque }}</a></td>
+                    <td><a href="{{ path('donateur_show', { 'id': d.donateur.id }) }}#detail">{{ d.banque }}</a></td>
+                </tr>
+        {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

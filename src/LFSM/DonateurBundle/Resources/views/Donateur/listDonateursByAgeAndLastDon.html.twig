@@ -1,0 +1,46 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <div class="col-tableau" style="width:99%">
+        <div class="pagination_navigation">
+            <div class="pagination_custom">
+                <p>Page {{pagination.getCurrentPageNumber}}/{{totalPages}} ({{pagination.getTotalItemCount}} entrées)</p>
+            </div>
+            <div class="navigation">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+        </div>
+        <table>
+            <tbody>
+                <tr>
+                    <th width="5%">{{ knp_pagination_sortable(pagination, 'N° Contact', 'd.id') }}</th>
+                    <th width="10%">{{ knp_pagination_sortable(pagination, 'Raison Sociale', 'd.rs') }}</th>
+                    <th width="5%">{{ knp_pagination_sortable(pagination, 'Civilite', 'c.civ_lib_court') }}</th>
+                    <th width="10%">{{ knp_pagination_sortable(pagination, 'Nom', 'd.nom') }}</th>
+                    <th width="10%">{{ knp_pagination_sortable(pagination, 'Prénom', 'd.prenom') }}</th>
+                    <th width="20%">{{ knp_pagination_sortable(pagination, 'Adresse', 'd.adresse') }}</th>
+                    <th width="5%">{{ knp_pagination_sortable(pagination, 'BP', 'd.bp') }}</th>
+                    <th width="5%">{{ knp_pagination_sortable(pagination, 'CP', 'd.cp') }}</th>
+                    <th width="10%">{{ knp_pagination_sortable(pagination, 'Ville', 'd.ville') }}</th>
+                    <th width="10%">{{ knp_pagination_sortable(pagination, 'Etat', 'e.etat_lib') }}</th>
+                </tr>
+        {% for key,donateur in pagination %}
+                <tr class="{{ cycle(['fdblanc', 'fdbleu'], key) }}">
+                    <td><a href="{{ path('donateur_show', { 'id': donateur.id }) }}">{{ donateur.id }}</a></td>
+                    <td><a href="{{ path('donateur_show', { 'id': donateur.id }) }}">{{ donateur.rs }}</a></td>
+                    <td><a href="{{ path('donateur_show', { 'id': donateur.id }) }}">{{ donateur.civilite }}</a></td>
+                    <td><a href="{{ path('donateur_show', { 'id': donateur.id }) }}">{{ donateur.nom }}</a></td>
+                    <td><a href="{{ path('donateur_show', { 'id': donateur.id }) }}">{{ donateur.prenom }}</a></td>
+                    <td><a href="{{ path('donateur_show', { 'id': donateur.id }) }}">{{ donateur.adresse }}</a></td>
+                    <td><a href="{{ path('donateur_show', { 'id': donateur.id }) }}">{{ donateur.bp }}</a></td>
+                    <td><a href="{{ path('donateur_show', { 'id': donateur.id }) }}">{{ donateur.cp }}</a></td>
+                    <td><a href="{{ path('donateur_show', { 'id': donateur.id }) }}">{{ donateur.ville }}</a></td>
+                    <td><a href="{{ path('donateur_show', { 'id': donateur.id }) }}">{{ donateur.etat }}</a></td>
+                </tr>
+        {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

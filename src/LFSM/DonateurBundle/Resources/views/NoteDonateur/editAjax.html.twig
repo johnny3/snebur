@@ -1,0 +1,26 @@
+<div class="bloc" data-id="edition-note" style="position:relative">
+    <h3 id="titre_info_donateur_section">Edition de la note</h3>
+
+    <div class="bloc_info">
+        <form id="edition-note-update" action="{{ path('notedonateur_update', { 'id': note.id }) }}" method="post" {{ form_enctype(form_edit_note_donateur) }} novalidate>
+            <div id="lfsm_donateurbundle_notedonateurtype">
+                <table width="60%" style="margin:auto;">
+                    <tr>
+                        <td>{{ form_label(form_edit_note_donateur.titre, 'Titre') }}</td>
+                        <td>{{ form_widget(form_edit_note_donateur.titre, { 'attr': {'class': 'textfield validate[required]'} }) }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>{{ form_label(form_edit_note_donateur.corps, 'Note') }}</td>
+                        <td>{{ form_widget(form_edit_note_donateur.corps, { 'attr': {'class': 'textarea validate[required]'} }) }}</td>     
+                    </tr>
+                </table>
+            </div>
+            {{ form_rest(form_edit_note_donateur) }}
+            {{ form_errors(form_edit_note_donateur) }}
+            <p>
+                <button type="submit" class="save">&nbsp;</button>
+            </p>
+        </form>
+    </div>
+</div>

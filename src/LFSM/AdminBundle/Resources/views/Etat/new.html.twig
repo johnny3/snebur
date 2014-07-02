@@ -1,0 +1,28 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <h3 class="new_item_h3">Nouvel Etat</h3>
+
+    <div class="background_new_item">
+
+        <form action="{{ path('etat_create') }}" method="post" {{ form_enctype(form) }}>
+            <div class="col_form_new_edit">
+                <table>
+                    <tr>
+                        <td>{{ form_label(form.etat_lib, 'Libellé') }}</td>
+                        <td>{{ form_widget(form.etat_lib) }}</td>        
+                    </tr>
+                </table>
+            </div>
+                {{ form_rest(form) }}
+                {{ form_errors(form) }}    
+
+            <div class="buttons_action">
+                <button type="submit" class="save">&nbsp;</button>
+            </div>
+        </form>
+    </div>
+    <div class="clear"></div>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <h3>Gestion des thèmes pour les actions à mener</h3>
+    
+    <div class="col-tableau">
+        <div class="new_item_admin">
+            <a href="{{ path('theme_new') }}">
+                <img src="{{ asset('bundles/lfsmdonateur/images/new_item.png') }}" border="0" onmouseover="montre('Nouveau');" onmouseout="cache();">
+            </a>
+        </div>
+        <div class="pagination_navigation">
+            <div class="pagination_custom">
+                <p>Page {{pagination.getCurrentPageNumber}}/{{totalPages}} ({{pagination.getTotalItemCount}} entrées)</p>
+            </div>
+            <div class="navigation">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+        </div>
+        <table width="100%">
+            <tbody>
+                <tr>
+                    <th width="15%">{{ knp_pagination_sortable(pagination, 'Code', 'q.code_lib') }}</th>
+                    <th width="15%">{{ knp_pagination_sortable(pagination, 'Libellé', 'q.the_lib') }}</th>
+                    <th width="15%">Action</th>
+                </tr>
+                {% for entity in pagination %}
+                <tr class="fdblanc">
+                    <td>{{ entity.codelib }}</td>
+                    <td>{{ entity.thelib }}</td>
+                    <td><a href="{{ path('theme_edit', { 'id': entity.id }) }}">Modifier</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>    
+    </div>
+    <div class="clear"></div>
+</div>
+{% endblock %}

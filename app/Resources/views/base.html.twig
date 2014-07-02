@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Gestion des dons{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('bundles/lfsmdonateur/css/main.css') }}" media="screen">
+            <link rel="stylesheet" href="{{ asset('bundles/lfsmdonateur/css/validationEngine.jquery.css') }}" type="text/css"/>
+        {% endblock %}
+        
+        <link rel="icon" type="image/x-icon" href="{{ asset('BD.ico') }}" />
+    </head>
+    <body>
+        <div id="curseur" class="infobulle"></div>    
+        <div align="center" class="menu">
+            <table width="100%" border="0">
+                <tr>
+                    <td width="55%" align="left" class="titre">LFSM </td>
+                    <td width="5%" align="center"><a href="{{ path('donateur') }}" target="_self"><img src="{{ asset('bundles/lfsmdonateur/images/recherche.png') }}" border="0" onmouseover="montre('Rechercher un contact');" onmouseout="cache();"></a></td>
+              {#      <td width="5%" align="center"><a href="#" target="detail"><img src="{{ asset('bundles/lfsmdonateur/images/action.png') }}" border="0" onmouseover="montre('Sélection');" onmouseout="cache();"></a></td>  #}
+              {#      <td width="5%" align="center"><a href="#" target="detail"><img src="{{ asset('bundles/lfsmdonateur/images/liste.gif') }}" border="0" onmouseover="montre('Reçus libératoires');" onmouseout="cache();"></a></td>  #}
+                    <td width="5%" align="center"><a href="{{ path('contact_listes') }}" target="_self"><img src="{{ asset('bundles/lfsmdonateur/images/liste.png') }}" border="0" onmouseover="montre('Listes');" onmouseout="cache();"></a></td>
+              {#      <td width="5%" align="center"><a href="#" target="detail"><img src="{{ asset('bundles/lfsmdonateur/images/satistiques.png') }}" border="0" onmouseover="montre('Statistiques');" onmouseout="cache();"></a></td>  #}
+                    <td width="5%" align="center"><a href="{{ path('excelfile_import_edit', { 'id': 1 }) }}" target="_self"><img src="{{ asset('bundles/lfsmdonateur/images/upload-icon.png') }}" border="0" onmouseover="montre('chargement fichier donateurs');" onmouseout="cache();"></a></td>
+                    <td width="5%" align="center"><a href="{{ path('admin') }}" target="_self"><img src="{{ asset('bundles/lfsmdonateur/images/parametre.png') }}" border="0" onmouseover="montre('Paramètres');" onmouseout="cache();"></a></td>
+              {#      <td width="5%" align="center"><a href="#" target="detail"><img src="{{ asset('bundles/lfsmdonateur/images/archive.png') }}" border="0" onmouseover="montre('Historisation des dons');" onmouseout="cache();"></a></td>  #}
+                    <td width="5%" align="center"><a href="{{path('fos_user_security_logout')}}"><img src="{{ asset('bundles/lfsmdonateur/images/quitter.png') }}" border="0" onmouseover="montre('Quitter l\'application');" onmouseout="cache();"></a></td>
+                </tr>
+            </table>
+        </div>
+
+        {% block body %}{% endblock %}
+        {% block javascripts %}
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+            <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+            <script src="{{ asset('bundles/lfsmdonateur/js/jquery.validationEngine.js') }}" type="text/javascript" charset="utf-8"></script>
+            <script src="{{ asset('bundles/lfsmdonateur/js/languages/jquery.validationEngine-fr.js') }}" type="text/javascript" charset="utf-8"></script>
+            <script src="{{ asset('bundles/lfsmdonateur/js/general.js') }}" type="text/javascript"></script>
+            <script src="{{ asset('bundles/lfsmdonateur/js/infobulle.js') }}" type="text/javascript"></script>
+            <script src="{{ asset('bundles/lfsmdonateur/js/jquery.cookie.js') }}" type="text/javascript"></script>
+        {% endblock %}
+    </body>
+</html>
